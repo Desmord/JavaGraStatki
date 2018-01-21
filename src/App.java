@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -30,38 +31,52 @@ class Game {
 			{ "2  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "3  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "4  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "5  ", "- ", "- ", "- ", "- ", "  ", "- ", "- ", "- ", "- ", "- " },
+			{ "5  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "6  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "7  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "8  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "9  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "10 ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " }, };
 	private int shipNumbersLeft = 0;
-	private ArrayList<String> ships = new ArrayList<String>();
+	private String[] ships = new String[20];
 
 	public Game() {
 		generateShips();
 	}
 
 	/**
-	 * method generates random ships and set them to ships array
+	 * method generates random ships and set them to 'ships' array
 	 */
 	private void generateShips() {
 
-		Random rand = new Random();
+		for (int i = 0; i < 20; i++) {
 
-		while (getShipNumbersLeft() < 20) {
+			String value = (int) (Math.random() * 10 + 1) + "," + (int) (Math.random() * 10 + 1);
 
-			int x = (int) (Math.random() * 10 + 1);
-			int y = (int) (Math.random() * 10 + 1);
+			if (!checkDuplicates(value, getShips())) {
+				getShips()[i] = value;
+			} else {
+				i--;
+			}
 
-			getShips().add(x+","+y);
-			System.out.println(getShips());
-
-			setShipNumbersLeft(getShipNumbersLeft() + 1);
-			
 		}
+	}
 
+	/**
+	 * Checking if there is a duplicates in the given array
+	 * 
+	 * @param value
+	 * @param array
+	 * @return true if there is duplicate, false if there in none
+	 */
+	private boolean checkDuplicates(String value, String[] array) {
+
+		for (int i = 0; i < array.length; i++) {
+			if (value.equals(array[i]) && array[i] != null) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -90,11 +105,11 @@ class Game {
 		return gameBoard;
 	}
 
-	public ArrayList<String> getShips() {
+	public String[] getShips() {
 		return ships;
 	}
 
-	public void setShips(ArrayList<String> ships) {
+	public void setShips(String[] ships) {
 		this.ships = ships;
 	}
 
