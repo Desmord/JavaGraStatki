@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 
 public class App {
 	/**
@@ -24,18 +26,42 @@ class Game {
 
 	private String[][] gameBoard = new String[][] {
 			{ "  ", " A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I ", "J " },
-			{ "1  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "X ", "- " },
-			{ "2  ", "X ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "X ", "- " },
-			{ "3  ", "X ", "- ", "- ", "- ", "- ", "X ", "X ", "- ", "X ", "- " },
-			{ "4  ", "X ", "- ", "- ", "X ", "- ", "- ", "- ", "- ", "X ", "- " },
-			{ "5  ", "- ", "- ", "- ", "- ", "X ", "- ", "- ", "- ", "X ", "- " },
-			{ "6  ", "- ", "- ", "- ", "- ", "- ", "X ", "- ", "- ", "- ", "- " },
-			{ "7  ", "- ", "- ", "- ", "- ", "- ", "- ", "X ", "- ", "- ", "- " },
+			{ "1  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
+			{ "2  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
+			{ "3  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
+			{ "4  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
+			{ "5  ", "- ", "- ", "- ", "- ", "  ", "- ", "- ", "- ", "- ", "- " },
+			{ "6  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
+			{ "7  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "8  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "9  ", "- ", "X ", "X ", "X ", "X ", "- ", "- ", "- ", "X ", "X " },
+			{ "9  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "10 ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " }, };
+	private int shipNumbersLeft = 0;
+	private ArrayList<String> ships = new ArrayList<String>();
 
 	public Game() {
+		generateShips();
+	}
+
+	/**
+	 * method generates random ships and set them to ships array
+	 */
+	private void generateShips() {
+
+		Random rand = new Random();
+
+		while (getShipNumbersLeft() < 20) {
+
+			int x = (int) (Math.random() * 10 + 1);
+			int y = (int) (Math.random() * 10 + 1);
+
+			getShips().add(x+","+y);
+			System.out.println(getShips());
+
+			setShipNumbersLeft(getShipNumbersLeft() + 1);
+			
+		}
+
 	}
 
 	/**
@@ -52,8 +78,24 @@ class Game {
 
 	}
 
+	public int getShipNumbersLeft() {
+		return shipNumbersLeft;
+	}
+
+	public void setShipNumbersLeft(int shipNumbersLeft) {
+		this.shipNumbersLeft = shipNumbersLeft;
+	}
+
 	public String[][] getGameBoard() {
 		return gameBoard;
+	}
+
+	public ArrayList<String> getShips() {
+		return ships;
+	}
+
+	public void setShips(ArrayList<String> ships) {
+		this.ships = ships;
 	}
 
 }
