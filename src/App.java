@@ -15,8 +15,8 @@ public class App {
 
 		// zrobic sprawdzanie poprawnosci wprowadzanych danych
 		// sprawdzanie liter za drugim razem
-		// sprawdzanie czy juz trafiony
-		// zliczanie ile razy sie spodlowalo w clasie
+		
+		
 		// pranie
 		// karteczka
 		// klawiatura kupic
@@ -38,7 +38,7 @@ public class App {
 
 		}
 
-		System.out.println("Gartulacje. Zatopiono wszystkie statki.");
+		System.out.println("Gartulacje. Zatopiono wszystkie statki po "+firstGame.getShotsNumber()+ " strza³ach.");
 
 	}
 }
