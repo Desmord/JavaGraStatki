@@ -13,32 +13,38 @@ public class App {
 
 		System.out.println("Witaj w grze w statki.\n");
 
-		// zrobic sprawdzanie poprawnosci wprowadzanych danych
-		// sprawdzanie liter za drugim razem
-		
-		
 		// pranie
 		// karteczka
 		// klawiatura kupic
 
+		// Do while the number of sunken ships is greater than 0
 		while (firstGame.getShipNumbersLeft() > 0) {
+
+			String x;
+			char y;
 
 			firstGame.printGameBoard();
 			System.out.print("\n");
 
-			System.out.print("Podaj wspó³rzêdn¹ x: ");
-			int x = sc.nextInt();
-			sc.nextLine();
+			do {
 
-			System.out.print("Podaj wspó³rzêdn¹ y: ");
-			int y = sc.nextInt();
-			sc.nextLine();
+				System.out.print("Podaj wspó³rzêdn¹ x: ");
+				x = sc.nextLine();
 
-			firstGame.shot(x, y);
+			} while (firstGame.checkIfNumberIsCorrect(x));
+
+			do {
+
+				System.out.print("Podaj wspó³rzêdn¹ y: ");
+				y = sc.nextLine().charAt(0);
+
+			} while (firstGame.checkIfLetterIsCorrect(y));
+
+			firstGame.shot(Integer.parseInt(x), firstGame.returnNumberFromLetter(y));
 
 		}
 
-		System.out.println("Gartulacje. Zatopiono wszystkie statki po "+firstGame.getShotsNumber()+ " strza³ach.");
+		System.out.println("Gartulacje. Zatopiono wszystkie statki po " + firstGame.getShotsNumber() + " strza³ach.");
 
 	}
 }
