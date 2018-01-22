@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.Scanner;
 
 public class App {
 	/**
@@ -11,106 +9,36 @@ public class App {
 	public static void main(String[] args) {
 
 		Game firstGame = new Game();
+		Scanner sc = new Scanner(System.in);
 
-		firstGame.drawGameBoard();
+		System.out.println("Witaj w grze w statki.\n");
 
-	}
-}
+		// zrobic sprawdzanie poprawnosci wprowadzanych danych
+		// sprawdzanie liter za drugim razem
+		// sprawdzanie czy juz trafiony
+		// zliczanie ile razy sie spodlowalo w clasie
+		// pranie
+		// karteczka
+		// klawiatura kupic
 
-/**
- * Class respond for control and display game
- * 
- * @author Miko³aj Chojnacki
- *
- */
-class Game {
+		while (firstGame.getShipNumbersLeft() > 0) {
 
-	private String[][] gameBoard = new String[][] {
-			{ "  ", " A ", "B ", "C ", "D ", "E ", "F ", "G ", "H ", "I ", "J " },
-			{ "1  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "2  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "3  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "4  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "5  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "6  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "7  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "8  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "9  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
-			{ "10 ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " }, };
-	private int shipNumbersLeft = 0;
-	private String[] ships = new String[20];
+			firstGame.printGameBoard();
+			System.out.print("\n");
 
-	public Game() {
-		generateShips();
-	}
+			System.out.print("Podaj wspó³rzêdn¹ x: ");
+			int x = sc.nextInt();
+			sc.nextLine();
 
-	/**
-	 * method generates random ships and set them to 'ships' array
-	 */
-	private void generateShips() {
+			System.out.print("Podaj wspó³rzêdn¹ y: ");
+			int y = sc.nextInt();
+			sc.nextLine();
 
-		for (int i = 0; i < 20; i++) {
-
-			String value = (int) (Math.random() * 10 + 1) + "," + (int) (Math.random() * 10 + 1);
-
-			if (!checkDuplicates(value, getShips())) {
-				getShips()[i] = value;
-			} else {
-				i--;
-			}
+			firstGame.shot(x, y);
 
 		}
-	}
 
-	/**
-	 * Checking if there is a duplicates in the given array
-	 * 
-	 * @param value
-	 * @param array
-	 * @return true if there is duplicate, false if there in none
-	 */
-	private boolean checkDuplicates(String value, String[] array) {
-
-		for (int i = 0; i < array.length; i++) {
-			if (value.equals(array[i]) && array[i] != null) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Draw game board
-	 */
-	public void drawGameBoard() {
-
-		for (int i = 0; i < 11; i++) {
-			for (int j = 0; j < 11; j++) {
-				System.out.print(getGameBoard()[i][j]);
-			}
-			System.out.println("");
-		}
+		System.out.println("Gartulacje. Zatopiono wszystkie statki.");
 
 	}
-
-	public int getShipNumbersLeft() {
-		return shipNumbersLeft;
-	}
-
-	public void setShipNumbersLeft(int shipNumbersLeft) {
-		this.shipNumbersLeft = shipNumbersLeft;
-	}
-
-	public String[][] getGameBoard() {
-		return gameBoard;
-	}
-
-	public String[] getShips() {
-		return ships;
-	}
-
-	public void setShips(String[] ships) {
-		this.ships = ships;
-	}
-
 }
