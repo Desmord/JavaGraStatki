@@ -156,6 +156,88 @@ public class Game {
 
 	}
 
+	/**
+	 * Checks if given number is form 1 to 10
+	 * 
+	 * @param number
+	 * @return false if is form 1 to 10
+	 */
+	public boolean checkIfNumberIsCorrect(String number) {
+
+		try {
+			if (Integer.parseInt(number) > 0 && Integer.parseInt(number) < 11) {
+				return false;
+			}
+		} catch (Exception ex) {
+			System.out.println("le wprowadzone dane. \nMusi byæ liczba z przedzia³u 1-10");
+		}
+
+		System.out.println("Liczba z poza zakresu 1-10");
+		return true;
+	}
+
+	/**
+	 * Checks if given letter is form A to J
+	 * 
+	 * @param number
+	 * @return false if is form 1 to 10
+	 */
+	public boolean checkIfLetterIsCorrect(char letter) {
+
+		char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+
+		try {
+
+			for (int i = 0; i < letters.length; i++) {
+
+				if (Character.toUpperCase(letter) == letters[i]) {
+					return false;
+				}
+
+			}
+
+		} catch (Exception ex) {
+			System.out.println("le wprowadzone dane. \nMusi byæ litera z przedzia³u A-J.");
+		}
+
+		System.out.println("le wprowadzone dane. \nMusi byæ litera z przedzia³u A-J.");
+		return true;
+	}
+
+	/**
+	 * Return number depending on what letter was given
+	 * 
+	 * @param letter
+	 * @return number
+	 */
+	public int returnNumberFromLetter(char letter) {
+
+		switch (Character.toUpperCase(letter)) {
+		case 'A':
+			return 1;
+		case 'B':
+			return 2;
+		case 'C':
+			return 3;
+		case 'D':
+			return 4;
+		case 'E':
+			return 5;
+		case 'F':
+			return 6;
+		case 'G':
+			return 7;
+		case 'H':
+			return 8;
+		case 'I':
+			return 9;
+		case 'J':
+			return 10;
+		default:
+			return 1;
+		}
+	}
+
 	public int getShipNumbersLeft() {
 		return shipNumbersLeft;
 	}
