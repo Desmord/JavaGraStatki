@@ -19,8 +19,9 @@ public class Game {
 			{ "9  ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " },
 			{ "10 ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- ", "- " }, };
 	private int shipNumbersLeft = 20;
+	private int shotsNumber = 0;
 	private String[] ships = new String[20];
-	private String[] shipsSank = new String[20]; 
+	private String[] shipsSank = new String[20];
 
 	public Game() {
 		generateShips();
@@ -35,34 +36,66 @@ public class Game {
 	 *            coordinates
 	 */
 	public void shot(int x, int y) {
-		
-		symulateClearConsole();
 
 		String point = x + "," + y;
 		Boolean hit = false;
+
+		symulateClearConsole();
+
+		setShotsNumber(getShotsNumber() + 1);
+		System.out.println("Wystrzelono " + getShotsNumber() + " pocisków.");
 
 		for (int i = 0; i < 20; i++) {
 
 			if (point.equals(getShips()[i])) {
 
-				setShipNumbersLeft(getShipNumbersLeft() - 1);
+				if (checkIfShipAlreadyHit(point)) {
 
-				hit = true;
+					setShipNumbersLeft(getShipNumbersLeft() - 1);
 
-				getGameBoard()[x][y] = "X ";
+					hit = true;
 
-				System.out.println("Trafienie w punkcie x: " + x + " y: " + y + ".");
-				System.out.println("Zosta³o " + getShipNumbersLeft() + " statków.\n");
+					getGameBoard()[x][y] = "X ";
 
+					System.out.println("Trafienie w punkcie x: " + x + " y: " + y + ".");
+					System.out.println("Zosta³o " + getShipNumbersLeft() + " statków.\n");
+
+				}
 			}
 		}
 
 		if (!hit) {
 
-			getGameBoard()[x][y] = "o ";
+			if (checkIfShipAlreadyHit(point)) {
+				getGameBoard()[x][y] = "o ";
+			} else {
+				System.out.println("Statek zosta³ ju¿ zatopiony.");
+			}
 
-			System.out.println("     Pud³o. \n");
+			System.out.println("          Pud³o. \n");
 		}
+
+	}
+
+	/**
+	 * Checks if ships was already hit
+	 * 
+	 * @param point
+	 * @return true if not already hit
+	 */
+	private boolean checkIfShipAlreadyHit(String point) {
+
+		for (int i = 0; i < 20; i++) {
+			if (point.equals(getShipsSank()[i])) {
+
+				return false;
+
+			}
+		}
+
+		getShipsSank()[getShipNumbersLeft() - 1] = point;
+
+		return true;
 
 	}
 
@@ -83,7 +116,7 @@ public class Game {
 
 			String value = (int) (Math.random() * 10 + 1) + "," + (int) (Math.random() * 10 + 1);
 
-			if (!checkDuplicates(value, getShips())) {
+			if (!checkShipsDuplicates(value, getShips())) {
 				getShips()[i] = value;
 			} else {
 				i--;
@@ -99,7 +132,7 @@ public class Game {
 	 * @param array
 	 * @return true if there is duplicate in the array, false if there in none
 	 */
-	private boolean checkDuplicates(String value, String[] array) {
+	private boolean checkShipsDuplicates(String value, String[] array) {
 
 		for (int i = 0; i < array.length; i++) {
 			if (value.equals(array[i]) && array[i] != null) {
@@ -149,6 +182,14 @@ public class Game {
 
 	public void setShipsSank(String[] shipsSank) {
 		this.shipsSank = shipsSank;
+	}
+
+	public int getShotsNumber() {
+		return shotsNumber;
+	}
+
+	public void setShotsNumber(int shotsNumber) {
+		this.shotsNumber = shotsNumber;
 	}
 
 }
